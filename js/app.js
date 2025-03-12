@@ -77,3 +77,35 @@ document.addEventListener("keyup", function (event) {
     }
     input.value = "";
   }
+
+                          });
+
+function completeToDo(element) {
+  element.classList.toggle(CHECK);
+  element.classList.toggle(UNCHECK);
+  element.parentNode.querySelector(".text").classList.toggle(LINE_THROUGH);
+
+  LIST[Number(element.id)].done = !LIST[Number(element.id)].done;
+
+}
+
+function removeToDo(element) {
+  element.parentNode.parentNode.removeChild(element.parentNode);
+
+  LIST[element.id].trash = true;
+}
+
+list.addEventListener("click", function (event) {
+  const element = event.target;
+  const elementJob = element.attributes.job.value;
+
+  if (elementJob === "complete") {
+    completeToDo(element);
+  } else if (elementJob == "delete") { 
+    removeToDo(element);
+  }
+  localStorage.setItem("TODO", JSON.stringify(LIST));
+});
+
+
+
