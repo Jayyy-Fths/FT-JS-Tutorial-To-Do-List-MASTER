@@ -20,3 +20,30 @@ if(data){
     LIST = [];
     id = 0;
 }
+
+function loadList(array){
+    array.forEach(function(item){
+        addToDo(item.name, item.id, item.done, item.trash);
+        if (item.done) {
+            document.getElementById(item.id)?.classList.add(CHECK);
+            document.getElementById(item.id)?.classList.remove(UNCHECK);
+        }
+    });
+}
+
+
+clear.addEventListener("click", function(){
+    localStorage.clear();
+    location.reload();
+})
+
+const options = { weekday: "long", month: "short", day: "numeric" };
+const today = new Date();
+
+
+dateElement.innerHTML = today.toLocaleDateString("en-US", options);
+
+function addToDo(toDo, id, done, trash) {
+  if (trash) {
+    return;
+  }
